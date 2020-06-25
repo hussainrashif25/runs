@@ -23,7 +23,7 @@ const GameSchema = new Schema ({
             }
         }
     ],
-    game: {
+    stats: {
         blue: Number,
         red: Number
     },
