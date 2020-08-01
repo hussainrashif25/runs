@@ -6,6 +6,14 @@ const GameSchema = new Schema ({
         type: Object,
         required: true
     },
+    name: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        requried: true
+    },
     players: [
         {
             email: {

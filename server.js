@@ -4,14 +4,12 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const cors = require('cors');
 
-const users = require("./routes/api/users");
-const games = require("./routes/api/games");
-
 const app = express();
-
-
 app.use(cors())
 
+//Models
+const users = require("./routes/api/users");
+const games = require("./routes/api/games");
 
 // Bodyparser middleware
 app.use(
@@ -39,5 +37,14 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/games", games);
 
+
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
-app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+
+
+//Socket.io
+var server = app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+var io = require('socket.io').listen(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected')
+});

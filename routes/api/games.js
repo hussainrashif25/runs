@@ -75,8 +75,9 @@ router.post(
 
         const NEW_GAME = await new Game({
             owner: OWNER,
-            name: req.body.gameName,
-            players: req.body.players
+            name: req.body.name,
+            players: req.body.players,
+            location: req.body.location
         });
 
         NEW_GAME.save()
@@ -94,14 +95,20 @@ router.patch(
     (req, res) => {
         let gameFields = {};
 
-        gameFields.name = req.body.gameName;
+        gameFields.name = req.body.name;
         gameFields.players = req.body.players;
-        gameFields.stats = req.body.gameStats;
+        gameFields.stats = req.body.stats;
+
+        console.log(gameFields.name);
+        console.log(gameFields.players);
+        console.log(gameFields.stats);
 
         Game.findOneAndUpdate(
-            { _id: req.body.id },
+            //{ _id: req.body.id },
+            //Used for frontend??
+            { name: gameFields.name },
             { $set: gameFields },
-            { new: true }
+            { new: true, upsert: true}
         )
         .then(game => {
             res.json(game);
