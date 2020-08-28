@@ -67,6 +67,33 @@ router.post(
     "/create",
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
+
+        /*let socket_id = [];
+        const io = req.app.get('socketio');
+
+        io.on('connection', socket => {
+            socket_id.push(socket.id);
+            if (socket_id[0] === socket.id) {
+              // remove the connection listener for any subsequent 
+              // connections with the same ID
+              io.removeAllListeners('connection'); 
+            }
+      
+            socket.on('hello message', msg => {
+              console.log('just got: ', msg);
+              socket.emit('chat message', 'hi from server');
+      
+            })
+      
+         });*/
+        
+        /*const socketID = req.user.id.socketID
+        const io = req.app.get('socketio')
+        const senderSocket = io.sockets.connected[socketID]
+        if (senderSocket){
+            senderSocket.broadcast.emit('userid', { socketID })
+        }*/
+
         const OWNER = {
             id: req.user.id,
             name: req.user.name,
@@ -81,7 +108,8 @@ router.post(
         });
 
         NEW_GAME.save()
-        .then(game => res.json(game));
+        .then(game => res.json(game))
+        .then();
     }
 );
 
